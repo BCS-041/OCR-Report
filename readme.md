@@ -1,7 +1,7 @@
 
 # 🧾 Medical Report Parser (.aspx / PDF Reports)
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.13%2B-blue?logo=python)](https://www.python.org/)
 [![Dependencies](https://img.shields.io/badge/requirements-pdfplumber%2C%20requests%2C%20openai-green)](https://pypi.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-red?logo=openai)](https://openrouter.ai)
