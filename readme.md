@@ -1,10 +1,26 @@
-
 # 🧾 Medical Report Parser (.aspx / PDF Reports)
 
 [![Python](https://img.shields.io/badge/Python-3.13%2B-blue?logo=python)](https://www.python.org/)
 [![Dependencies](https://img.shields.io/badge/requirements-pdfplumber%2C%20requests%2C%20openai-green)](https://pypi.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-red?logo=openai)](https://openrouter.ai)
+
+A Python tool that fetches medical reports from `.aspx` or `.pdf` links and converts them into structured JSON using AI models via OpenRouter.
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Why This Tool?](#-why-this-tool)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Configuration](#-configuration)
+- [Example Output](#-example-output)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
@@ -16,55 +32,65 @@ It helps labs, clinics, and developers by turning **unstructured medical reports
 
 ---
 
-## 🎯 Why this tool?
+## 🎯 Why This Tool?
 
-* Medical reports are often served as **PDFs behind `.aspx` URLs**.
-* Manually extracting patient and test information is **slow and error-prone**.
-* This tool automates the process:
-  ✅ Downloads the report
-  ✅ Extracts text
-  ✅ Parses it into JSON (Patient Name, Date, Findings, Results)
-  ✅ Saves everything automatically
+- Medical reports are often served as **PDFs behind `.aspx` URLs**
+- Manually extracting patient and test information is **slow and error-prone**
+- This tool automates the process:
+  - ✅ Downloads the report
+  - ✅ Extracts text
+  - ✅ Parses it into JSON (Patient Name, Date, Findings, Results)
+  - ✅ Saves everything automatically
 
 ---
+
 ## ⚙️ Features
 
-* Works with **.aspx medical reports** and direct PDFs
-* Extracts **Patient Details, Report Date, Test Names, Key Findings, Results**
-* Handles both **PDF text** and **non-PDF text**
-* Fixes malformed JSON automatically
-* Saves all results in `extracted_reports.json`
+- Works with **.aspx medical reports** and direct PDFs
+- Extracts **Patient Details, Report Date, Test Names, Key Findings, Results**
+- Handles both **PDF text** and **non-PDF text**
+- Fixes malformed JSON automatically
+- Saves all results in `extracted_reports.json`
 
 ---
 
-## 📂 Project Structure
+## 🚀 Installation
 
-```
-.
-├── main.py                  # Main script
-├── report_link.json          # Input file with report URLs
-├── extracted_reports.json    # Output file with parsed results
-└── README.md                 # Documentation
-```
-
----
-
-## 🚀 Quick Start
-
-### 1️⃣ Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/medical-report-parser.git
 cd medical-report-parser
 ```
 
-### 2️⃣ Install dependencies
+### 2. Install dependencies
 
 ```bash
 pip install requests pdfplumber openai
 ```
 
-### 3️⃣ Configure API Key
+### 3. System Dependencies (if needed)
+
+For PDF processing, you might need:
+
+**On Ubuntu/Debian:**
+```bash
+sudo apt-get install build-essential libpoppler-cpp-dev pkg-config python3-dev
+```
+
+**On macOS:**
+```bash
+brew install pkg-config poppler
+```
+
+**On Windows:**
+No additional system dependencies required.
+
+---
+
+## ⚙️ Configuration
+
+### 1. Add your OpenRouter API Key
 
 Edit `main.py` and add your **OpenRouter API key**:
 
@@ -75,9 +101,18 @@ client = OpenAI(
 )
 ```
 
-### 4️⃣ Add Report URLs
+### 2. Configure Input/Output Files
 
-Create a file `report_link.json`:
+Modify these variables in the script if needed:
+
+```python
+INPUT_FILE = "report_link.json"        # Input file with report URLs
+OUTPUT_FILE = "extracted_reports.json" # Output file for parsed results
+```
+
+### 3. Prepare Input Data
+
+Create a file `report_link.json` with your report URLs:
 
 ```json
 [
@@ -86,11 +121,21 @@ Create a file `report_link.json`:
 ]
 ```
 
-### 5️⃣ Run the script
+---
+
+## 🚀 Usage
+
+Run the script:
 
 ```bash
 python main.py
 ```
+
+The tool will:
+1. Fetch each report from the provided URLs
+2. Extract text content
+3. Process through the AI model
+4. Save structured data to `extracted_reports.json`
 
 ---
 
@@ -120,26 +165,101 @@ python main.py
 
 ---
 
-## 🛠️ How to Fork
+## 📂 Project Structure
 
-1. Click the **Fork** button (top-right of this repo).
-2. Choose your **GitHub account** as the destination.
-3. Clone your fork locally:
+```
+medical-report-parser/
+├── main.py                  # Main script
+├── report_link.json         # Input file with report URLs
+├── extracted_reports.json   # Output file with parsed results
+├── requirements.txt         # Python dependencies
+├── LICENSE                  # MIT License
+└── README.md               # Documentation
+```
 
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/medical-report-parser.git
-   ```
-4. Make changes and push them:
+---
 
-   ```bash
-   git add .
-   git commit -m "Updated parser"
-   git push origin main
-   ```
+## 🛠️ Customization
+
+### Modifying the Extraction Schema
+
+Edit the system prompt in `main.py` to change what information is extracted:
+
+```python
+system_prompt = """You are a medical report parsing assistant. Extract the following information from the medical report:
+- Patient Name
+- Report Date
+- Test Name
+- Key Findings
+- Test Results (including values, reference ranges, and status)
+..."""
+```
+
+### Adding Support for New Formats
+
+The tool can be extended to support additional medical report formats by:
+
+1. Adding new text extraction functions
+2. Modifying the URL handling logic
+3. Creating specialized parsing prompts for different report types
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **API Errors**
+   - Verify your OpenRouter API key is correct
+   - Check your API quota and billing status
+
+2. **PDF Extraction Issues**
+   - Ensure `pdfplumber` is properly installed
+   - For encrypted PDFs, additional handling may be required
+
+3. **Network Errors**
+   - Check your internet connection
+   - Verify the report URLs are accessible
+
+### Debug Mode
+
+Enable debug output by modifying the script:
+
+```python
+DEBUG = True  # Set to True for verbose output
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
 ## 📜 License
 
-MIT License – Free to use, modify, and distribute.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
+## 🙏 Acknowledgments
+
+- [OpenRouter](https://openrouter.ai/) for providing AI model access
+- [pdfplumber](https://github.com/jsvine/pdfplumber) for PDF text extraction
+- [OpenAI Python Library](https://github.com/openai/openai-python) for API interactions
+
+---
+
+
+<div align="center">
+
+**⭐ Don't forget to star this repository if you find it useful!**
+
+</div>
