@@ -27,11 +27,6 @@ It helps labs, clinics, and developers by turning **unstructured medical reports
   ✅ Saves everything automatically
 
 ---
-
-## 🖼️ Workflow
-
----
-
 ## ⚙️ Features
 
 * Works with **.aspx medical reports** and direct PDFs
