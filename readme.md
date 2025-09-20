@@ -30,15 +30,6 @@ It helps labs, clinics, and developers by turning **unstructured medical reports
 
 ## 🖼️ Workflow
 
-```mermaid
-flowchart TD
-    A[📥 Report URL (.aspx or PDF)] --> B[⬇️ Download Report]
-    B --> C[📄 Extract Text (PDF/Text)]
-    C --> D[🤖 Parse with LLM (OpenRouter)]
-    D --> E[📊 Structured JSON Output]
-    E --> F[💾 Save to extracted_reports.json]
-```
-
 ---
 
 ## ⚙️ Features
