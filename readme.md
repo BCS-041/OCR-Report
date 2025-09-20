@@ -1,78 +1,116 @@
-🧾 Medical Report Parser (.aspx / PDF Reports)
 
-This project is a Python tool that fetches medical reports from .aspx or .pdf links and automatically converts them into structured JSON using an AI model (LLM via OpenRouter).
+# 🧾 Medical Report Parser (.aspx / PDF Reports)
 
-It helps labs, clinics, and developers by turning unstructured medical reports into clean, digital data for dashboards, analysis, or storage.
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://www.python.org/)
+[![Dependencies](https://img.shields.io/badge/requirements-pdfplumber%2C%20requests%2C%20openai-green)](https://pypi.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-red?logo=openai)](https://openrouter.ai)
 
-📌 Why this tool?
+---
 
-Doctors & labs share reports as PDFs hosted on .aspx links.
+## 📌 Overview
 
-Manually reading each report is slow and error-prone.
+This project is a **Python tool** that fetches medical reports from `.aspx` or `.pdf` links and converts them into **structured JSON** using an **AI model via OpenRouter**.
 
-This tool:
-✅ Downloads the report
-✅ Extracts text
-✅ Parses it into JSON (Patient Name, Report Date, Findings, Results)
-✅ Saves everything automatically
+It helps labs, clinics, and developers by turning **unstructured medical reports** into **clean, digital data** for dashboards, analysis, or record-keeping.
 
-🖼️ Workflow Diagram
+---
+
+## 🎯 Why this tool?
+
+* Medical reports are often served as **PDFs behind `.aspx` URLs**.
+* Manually extracting patient and test information is **slow and error-prone**.
+* This tool automates the process:
+  ✅ Downloads the report
+  ✅ Extracts text
+  ✅ Parses it into JSON (Patient Name, Date, Findings, Results)
+  ✅ Saves everything automatically
+
+---
+
+## 🖼️ Workflow
+
+```mermaid
 flowchart TD
     A[📥 Report URL (.aspx or PDF)] --> B[⬇️ Download Report]
     B --> C[📄 Extract Text (PDF/Text)]
     C --> D[🤖 Parse with LLM (OpenRouter)]
     D --> E[📊 Structured JSON Output]
     E --> F[💾 Save to extracted_reports.json]
+```
 
-⚙️ Features
+---
 
-Works with .aspx medical reports and direct PDFs
+## ⚙️ Features
 
-Extracts patient details, test names, findings, and results
+* Works with **.aspx medical reports** and direct PDFs
+* Extracts **Patient Details, Report Date, Test Names, Key Findings, Results**
+* Handles both **PDF text** and **non-PDF text**
+* Fixes malformed JSON automatically
+* Saves all results in `extracted_reports.json`
 
-Handles both PDF text and non-PDF text
+---
 
-Automatically fixes formatting issues in JSON
+## 📂 Project Structure
 
-Saves all results into a single JSON file
-
-📂 Project Structure
+```
 .
 ├── main.py                  # Main script
 ├── report_link.json          # Input file with report URLs
 ├── extracted_reports.json    # Output file with parsed results
 └── README.md                 # Documentation
+```
 
-🚀 Quick Start
-1️⃣ Clone the repository
+---
+
+## 🚀 Quick Start
+
+### 1️⃣ Clone the repository
+
+```bash
 git clone https://github.com/YOUR-USERNAME/medical-report-parser.git
 cd medical-report-parser
+```
 
-2️⃣ Install dependencies
+### 2️⃣ Install dependencies
+
+```bash
 pip install requests pdfplumber openai
+```
 
-3️⃣ Add your API Key
+### 3️⃣ Configure API Key
 
-Open main.py and set your OpenRouter API key:
+Edit `main.py` and add your **OpenRouter API key**:
 
+```python
 client = OpenAI(
     api_key="YOUR_API_KEY_HERE",
     base_url="https://openrouter.ai/api/v1"
 )
+```
 
-4️⃣ Add report URLs
+### 4️⃣ Add Report URLs
 
-Create a file report_link.json:
+Create a file `report_link.json`:
 
+```json
 [
   {"url": "https://example.com/report1.aspx"},
   {"url": "https://example.com/report2.pdf"}
 ]
+```
 
-5️⃣ Run the script
+### 5️⃣ Run the script
+
+```bash
 python main.py
+```
 
-📊 Example Output
+---
+
+## 📊 Example Output
+
+```json
 [
   {
     "report_number": 1,
@@ -92,30 +130,30 @@ python main.py
     }
   }
 ]
+```
 
-🛠️ How to Fork this Repository
+---
 
-Click the Fork button (top-right of this repo).
+## 🛠️ How to Fork
 
-Choose your GitHub account as the destination.
+1. Click the **Fork** button (top-right of this repo).
+2. Choose your **GitHub account** as the destination.
+3. Clone your fork locally:
 
-Clone your fork locally:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/medical-report-parser.git
+   ```
+4. Make changes and push them:
 
-git clone https://github.com/YOUR-USERNAME/medical-report-parser.git
+   ```bash
+   git add .
+   git commit -m "Updated parser"
+   git push origin main
+   ```
 
+---
 
-Make changes and push them:
+## 📜 License
 
-git add .
-git commit -m "Updated parser"
-git push origin main
+MIT License – Free to use, modify, and distribute.
 
-📜 License
-
-MIT License – Free for personal and commercial use.
-
-👉 This README is now friendly for both developers and managers:
-
-Techies get commands & structure.
-
-Managers see workflow & purpose.
